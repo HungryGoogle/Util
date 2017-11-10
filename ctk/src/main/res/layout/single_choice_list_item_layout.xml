@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ItemVideoHolderRoot"
+    android:layout_width="match_parent"
+    android:layout_height="50dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/id_popup_single_choice"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/single_choice_selector"
+            />
+
+        <TextView
+            android:id="@+id/id_num"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+    </LinearLayout>
+
+
+</LinearLayout>
