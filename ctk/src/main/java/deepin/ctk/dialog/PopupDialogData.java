@@ -5,7 +5,7 @@ public class PopupDialogData {
     public interface LIST_TYPE{
         int TEXT = 0;
         int SINGLE_CHOICE = 1;
-        int MULTI_CHOICE = 1;
+        int MULTI_CHOICE = 2;
     }
 
     interface BUTTON_NUMBER{

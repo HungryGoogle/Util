@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -57,13 +58,49 @@ public class TestPopupDialogActivity extends Activity {
         });
     }
 
+    int iDefaultSelect = 0;
     private void single_choice_dialog() {
+        List items = new ArrayList();
+        items.add("默认");
+        items.add("A");
+        items.add("B");
+        items.add("C");
+
+
+
         PopupDialog popupDialog = new PopupDialog(this);
         popupDialog.builder()
-                .setTitle("hello")
+                .setTitle("请先选择厂商")
+//                .setTitleCenter()
+//                .setContent("content")
+//                .setNoTipAgain(true, new PopupDialog.OnPopupDialogClickListener() {
+//                    @Override
+//                    public void onClick(boolean bSelect) {
+//
+//                    }
+//                })
                 .setCancelBtnVisiable(true)
-                .setOkBtnVisiable(true)
-                .setCanceledOnTouchOutside(true)
+                .setOkBtnVisiable(new PopupDialog.OnPopupDialogClickListener() {
+                    @Override
+                    public void onClick(boolean bSelect) {
+
+                    }
+                })
+                .setSingleChoice((String[]) items.toArray(new String[items.size()]), iDefaultSelect, new PopupDialog.OnListItemClickListener() {
+                    @Override
+                    public void onClick(int which, boolean bSelect) {
+                        Log.i("leeTest----->", "single choose i = " + which + ", bSelect = " + bSelect);
+                        iDefaultSelect = which;
+                    }
+                })
+//                .setMultiChoice((String[]) items.toArray(new String[items.size()]), new int[]{0,1}, new PopupDialog.OnListItemClickListener() {
+//                    @Override
+//                    public void onClick(int which, boolean bSelect) {
+//                        Log.i("leeTest----->", "multi choose i = " + which + ", bSelect = " + bSelect);
+//                    }
+//                })
+//                .setCanceledOnTouchOutside(false)
+//                .setCancelable(false)
                 .show();
     }
 

@@ -26,17 +26,51 @@ import deepin.ctk.R;
 public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.MyViewHolder> {
     private final Context mContext;
     private final ArrayList<ItemData> mDatas;
+    private PopupDialog.OnListItemClickListener mCallback;
+    private int mItemType = PopupDialogData.LIST_TYPE.TEXT;
 
-    int type = PopupDialogData.LIST_TYPE.SINGLE_CHOICE;
+    public void setType(int type) {
+        switch (type){
+            case PopupDialogData.LIST_TYPE.TEXT:
+                mItemType = PopupDialogData.LIST_TYPE.TEXT;
+                break;
+            case PopupDialogData.LIST_TYPE.SINGLE_CHOICE:
+                mItemType = PopupDialogData.LIST_TYPE.SINGLE_CHOICE;
+                break;
+            case PopupDialogData.LIST_TYPE.MULTI_CHOICE:
+                mItemType = PopupDialogData.LIST_TYPE.MULTI_CHOICE;
+                break;
+            default:
+                mItemType = PopupDialogData.LIST_TYPE.TEXT;
+                break;
+        }
+    }
 
     DialogListAdapter(Context context) {
         mContext = context;
-
         mDatas = new ArrayList();
-        mDatas.add(new ItemData("单独风"));
-        mDatas.add(new ItemData("试试岳"));
-        mDatas.add(new ItemData("十点多"));
+    }
 
+    public void setItemDatas(String [] strDatas){
+        mDatas.clear();
+        for(int i = 0; i < strDatas.length; ++i){
+            ItemData itemData = new ItemData(strDatas[i]);
+            mDatas.add(itemData);
+        }
+    }
+
+    public void setDefalutSelect(int iSelect){
+        if(iSelect < 0 || mDatas.size() <= iSelect){
+            return;
+        }
+
+        ItemData itemData = mDatas.get(iSelect);
+        itemData.setSelected(true);
+        notifyDataSetChanged();
+    }
+
+    public void setCallback(PopupDialog.OnListItemClickListener callback){
+        mCallback = callback;
     }
 
     @Override
@@ -48,8 +82,15 @@ public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.textView.setText(mDatas.get(position).mStrContent);
-        holder.singleChoice.setSelected(mDatas.get(position).mIsSelected);
         holder.mItemRootView.setTag(mDatas.get(position));
+
+        if(mItemType == PopupDialogData.LIST_TYPE.SINGLE_CHOICE){
+            holder.singleChoice.setSelected(mDatas.get(position).mIsSelected);
+        }else if(mItemType == PopupDialogData.LIST_TYPE.MULTI_CHOICE){
+            holder.multiChoice.setSelected(mDatas.get(position).mIsSelected);
+        }else {
+            // expand other
+        }
     }
 
     @Override
@@ -57,16 +98,55 @@ public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.My
         return mDatas.size();
     }
 
+    private void onClickItem(String strContent){
+        for(int i = 0; i < mDatas.size(); ++i){
+            ItemData itemData = mDatas.get(i);
+            // 找到当前的
+            if(mItemType == PopupDialogData.LIST_TYPE.SINGLE_CHOICE){
+                if(!TextUtils.isEmpty(strContent) && strContent.equals(itemData.mStrContent)){
+                    itemData.setSelected(true);
+                    if(mCallback != null){
+                        mCallback.onClick(i, true);
+                    }
+                }else {
+                    itemData.setSelected(false);
+                }
+            }else if(mItemType == PopupDialogData.LIST_TYPE.MULTI_CHOICE){
+                if(!TextUtils.isEmpty(strContent) && strContent.equals(itemData.mStrContent)) {
+                    itemData.setSelected(!itemData.mIsSelected);
+                    mCallback.onClick(i, itemData.mIsSelected);
+                }
+            }else {
+                // expand other
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    // -----------------------------------------------------------------
     class MyViewHolder extends RecyclerView.ViewHolder {
         ViewGroup mItemRootView;
         TextView textView;
         ImageView singleChoice;
+        ImageView multiChoice;
 
         public MyViewHolder(View view) {
             super(view);
             mItemRootView = (ViewGroup) view;
             textView = view.findViewById(R.id.id_num);
+
             singleChoice = view.findViewById(R.id.id_popup_single_choice);
+            multiChoice = view.findViewById(R.id.id_popup_multi_choice);
+            singleChoice.setVisibility(View.GONE);
+            multiChoice.setVisibility(View.GONE);
+
+            if(mItemType == PopupDialogData.LIST_TYPE.SINGLE_CHOICE){
+                singleChoice.setVisibility(View.VISIBLE);
+            }else if(mItemType == PopupDialogData.LIST_TYPE.MULTI_CHOICE){
+                multiChoice.setVisibility(View.VISIBLE);
+            }else {
+                // expand other
+            }
 
             mItemRootView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,19 +162,6 @@ public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.My
         }
     }
 
-    private void onClickItem(String strContent){
-        for(int i = 0; i < mDatas.size(); ++i){
-            ItemData itemData = mDatas.get(i);
-            if(!TextUtils.isEmpty(strContent) && strContent.equals(itemData.mStrContent)){
-                itemData.setSelected(true);
-            }else {
-                itemData.setSelected(false);
-            }
-        }
-
-        notifyDataSetChanged();
-    }
-
     class ItemData {
         String mStrContent;
         boolean mIsSelected = false;
@@ -102,8 +169,6 @@ public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.My
         public void setSelected(boolean selected) {
             this.mIsSelected = selected;
         }
-
-
 
         public ItemData() {
         }

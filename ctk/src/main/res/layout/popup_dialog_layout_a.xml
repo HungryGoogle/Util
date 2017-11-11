@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left"
     android:background="@android:color/white"
+    android:gravity="left"
     android:orientation="vertical">
 
     <TextView
@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
-        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingBottom="5dp"
-        android:textSize="22sp"
+        android:paddingTop="20dp"
+        android:text="demo title"
         android:textColor="#333333"
-        android:text="demo title" />
+        android:textSize="22sp" />
 
 
     <TextView
@@ -25,48 +25,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
-        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="demo sub title"
         android:textColor="#666666"
-        android:textSize="18sp"
-        android:text="demo sub title" />
+        android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_gravity="left"
         android:id="@+id/id_all_items"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
+
+    <LinearLayout
+        android:id="@+id/id_popup_no_tip_again_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/id_popup_no_tip_again"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/multi_choice_selector"
+            android:minHeight="40dp"
+            android:text="demo sub title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不再提醒"
+            android:paddingLeft="5dp"
+            android:textColor="#666666"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg_selector"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/id_button_popup_cancel"
             android:layout_width="100dp"
             android:layout_height="55dp"
-            android:gravity="center"
             android:layout_weight="1"
-            android:textColor="#333333"
             android:background="@drawable/btn_bg_selector"
+            android:gravity="center"
             android:text="取消"
-            android:textSize="18sp"/>
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/id_button_popup_ok"
             android:layout_width="100dp"
             android:layout_height="55dp"
-            android:gravity="center"
             android:layout_weight="1"
-            android:textColor="#333333"
             android:background="@drawable/btn_bg_selector"
+            android:gravity="center"
             android:text="确定"
-            android:textSize="18sp"/>
+            android:textColor="#333333"
+            android:textSize="18sp" />
     </LinearLayout>
 
 

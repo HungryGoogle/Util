@@ -15,6 +15,13 @@
             android:background="@drawable/single_choice_selector"
             />
 
+        <ImageView
+            android:id="@+id/id_popup_multi_choice"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/multi_choice_selector"
+            />
+
         <TextView
             android:id="@+id/id_num"
             android:layout_marginLeft="20dp"
