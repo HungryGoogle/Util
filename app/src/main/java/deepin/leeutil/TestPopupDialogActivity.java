@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -61,31 +63,38 @@ public class TestPopupDialogActivity extends Activity {
     int iDefaultSelect = 0;
     private void single_choice_dialog() {
         List items = new ArrayList();
-        items.add("默认");
-        items.add("A");
-        items.add("B");
-        items.add("C");
+        items.add("李白");
+        items.add("杜甫");
+        items.add("张九龄");
 
-
-
+        ViewGroup viewCustomGroup = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.popup_dialog_custom_layout, null);
         PopupDialog popupDialog = new PopupDialog(this);
         popupDialog.builder()
-                .setTitle("请先选择厂商")
+                .setTitle("猜谜语")
 //                .setTitleCenter()
-//                .setContent("content")
+                .setContent("海上生明月 天涯共此时")
+//                .setContentCenter()
 //                .setNoTipAgain(true, new PopupDialog.OnPopupDialogClickListener() {
 //                    @Override
 //                    public void onClick(boolean bSelect) {
 //
 //                    }
 //                })
-                .setCancelBtnVisiable(true)
-                .setOkBtnVisiable(new PopupDialog.OnPopupDialogClickListener() {
+//                .addCustemView(viewCustomGroup)
+//                .setCancelBtnVisiable("cancel")
+                .setOkBtnVisiable("提交答案", new PopupDialog.OnPopupDialogClickListener() {
                     @Override
                     public void onClick(boolean bSelect) {
 
                     }
                 })
+//                .setSimpleList((String[]) items.toArray(new String[items.size()]), new PopupDialog.OnListItemClickListener() {
+//                    @Override
+//                    public void onClick(int which, boolean bSelect) {
+//                        Log.i("leeTest----->", "single list click " + which + ", bSelect = " + bSelect);
+//                        iDefaultSelect = which;
+//                    }
+//                })
                 .setSingleChoice((String[]) items.toArray(new String[items.size()]), iDefaultSelect, new PopupDialog.OnListItemClickListener() {
                     @Override
                     public void onClick(int which, boolean bSelect) {

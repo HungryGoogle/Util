@@ -68,12 +68,16 @@ public class PopupDialog {
         mRootView.findViewById(R.id.id_popup_content).setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.GONE);
         mRootView.findViewById(R.id.id_popup_no_tip_again_layout).setVisibility(View.GONE);
-        mRootView.findViewById(R.id.id_button_popup_cancel).setVisibility(View.GONE);
+        mRootView.findViewById(R.id.id_button_popup_more_btn).setVisibility(View.GONE);
+        mRootView.findViewById(R.id.id_button_popup_cancel).setVisibility(View.INVISIBLE);
         mRootView.findViewById(R.id.id_button_popup_ok).setVisibility(View.GONE);
 
         return this;
     }
 
+    /**
+     * 设置标题
+     */
     public PopupDialog setTitle(String title) {
         if (TextUtils.isEmpty(title)) {
             return this;
@@ -86,6 +90,9 @@ public class PopupDialog {
         return this;
     }
 
+    /**
+     * 设置标题居中
+     */
     public PopupDialog setTitleCenter() {
         TextView txt_title = (TextView) mRootView.findViewById(R.id.id_popup_title);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -97,7 +104,6 @@ public class PopupDialog {
 
     /**
      * 设置副标题（或者是内容）
-     * @param content
      * @return
      */
     public PopupDialog setContent(String content) {
@@ -111,6 +117,37 @@ public class PopupDialog {
         return this;
     }
 
+
+    /**
+     * 设置 副标题（或者是内容） 居中
+     */
+    public PopupDialog setContentCenter() {
+        TextView txt_title = (TextView) mRootView.findViewById(R.id.id_popup_content);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.CENTER;
+        txt_title.setLayoutParams(lp);
+
+        return this;
+    }
+
+    /**
+     * 设置副标题（或者是内容）
+     */
+    public PopupDialog addCustemView(ViewGroup mCustomRootView) {
+        if(mCustomRootView == null){
+            return this;
+        }
+
+        ViewGroup rootViewLayout = (ViewGroup) mRootView.findViewById(R.id.id_popup_custom_view_layout);
+        rootViewLayout.removeAllViews();
+        rootViewLayout.setVisibility(View.VISIBLE);
+        rootViewLayout.addView(mCustomRootView);
+        return this;
+    }
+
+    /**
+     * 设置是否再次提醒
+     */
     public PopupDialog setNoTipAgain(boolean defalutSelected, final OnPopupDialogClickListener callBack) {
         ViewGroup noTipAgainViewGroup = mRootView.findViewById(R.id.id_popup_no_tip_again_layout);
         noTipAgainViewGroup.setVisibility(View.VISIBLE);
@@ -129,13 +166,14 @@ public class PopupDialog {
         return this;
     }
 
-    public PopupDialog setCancelBtnVisiable(boolean btnVisiable) {
-        TextView tvCancel = (TextView) mRootView.findViewById(R.id.id_button_popup_cancel);
-
-        if (btnVisiable) {
-            tvCancel.setVisibility(View.VISIBLE);
-        } else {
-            tvCancel.setVisibility(View.GONE);
+    /**
+     * 设置取消按钮
+     */
+    public PopupDialog setCancelBtnVisiable(String strContent) {
+        TextView tvCancel = mRootView.findViewById(R.id.id_button_popup_cancel);
+        tvCancel.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(strContent)) {
+            tvCancel.setText(strContent);
         }
 
         tvCancel.setOnClickListener(new OnClickListener() {
@@ -147,9 +185,18 @@ public class PopupDialog {
         return this;
     }
 
-    public PopupDialog setOkBtnVisiable(final OnPopupDialogClickListener callBack) {
-        TextView tvOk = (TextView) mRootView.findViewById(R.id.id_button_popup_ok);
+    /**
+     * 设置确定按钮
+     * @param strContent 显示内容（可为nuu显示确定）
+     * @return
+     */
+    public PopupDialog setOkBtnVisiable(String strContent, final OnPopupDialogClickListener callBack) {
+        TextView tvOk = mRootView.findViewById(R.id.id_button_popup_ok);
         tvOk.setVisibility(View.VISIBLE);
+        if(!TextUtils.isEmpty(strContent)){
+            tvOk.setText(strContent);
+        }
+
         tvOk.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +232,14 @@ public class PopupDialog {
         return this;
     }
 
+    public PopupDialog setSimpleList(String[] strList, OnListItemClickListener callback) {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mAllSmallVideoAdapter.setType(PopupDialogData.LIST_TYPE.TEXT);
+        mAllSmallVideoAdapter.setItemDatas(strList);
+        mAllSmallVideoAdapter.setCallback(callback);
+        return this;
+    }
+
     public PopupDialog setSingleChoice(String[] strList, int iDefalutSelect, OnListItemClickListener callback) {
         mRecyclerView.setVisibility(View.VISIBLE);
         mAllSmallVideoAdapter.setType(PopupDialogData.LIST_TYPE.SINGLE_CHOICE);
@@ -193,6 +248,7 @@ public class PopupDialog {
         mAllSmallVideoAdapter.setCallback(callback);
         return this;
     }
+
     public PopupDialog setMultiChoice(String[] strList, int[] iDefalutSelect, OnListItemClickListener callback) {
         mRecyclerView.setVisibility(View.VISIBLE);
         mAllSmallVideoAdapter.setType(PopupDialogData.LIST_TYPE.MULTI_CHOICE);
