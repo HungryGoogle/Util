@@ -74,12 +74,12 @@ public class TestPopupDialogActivity extends Activity {
 //                .setTitleCenter()
                 .setContent("海上生明月 天涯共此时")
 //                .setContentCenter()
-//                .setNoTipAgain(true, new PopupDialog.OnPopupDialogClickListener() {
-//                    @Override
-//                    public void onClick(boolean bSelect) {
-//
-//                    }
-//                })
+                .setNoTipAgain(true, new PopupDialog.OnPopupDialogClickListener() {
+                    @Override
+                    public void onClick(boolean bSelect) {
+
+                    }
+                })
 //                .addCustemView(viewCustomGroup)
 //                .setCancelBtnVisiable("cancel")
                 .setOkBtnVisiable("提交答案", new PopupDialog.OnPopupDialogClickListener() {

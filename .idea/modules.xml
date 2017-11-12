@@ -3,13 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Util.iml" filepath="$PROJECT_DIR$/Util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Util.iml" filepath="$PROJECT_DIR$/Util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ctk/ctk.iml" filepath="$PROJECT_DIR$/ctk/ctk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ctk/ctk.iml" filepath="$PROJECT_DIR$/ctk/ctk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dialog/dialog.iml" filepath="$PROJECT_DIR$/dialog/dialog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dialog/dialog.iml" filepath="$PROJECT_DIR$/dialog/dialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meteria_dialog/meteria_dialog.iml" filepath="$PROJECT_DIR$/meteria_dialog/meteria_dialog.iml" />
     </modules>
   </component>
 </project>

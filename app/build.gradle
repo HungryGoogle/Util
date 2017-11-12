@@ -29,7 +29,7 @@ dependencies {
     //    compile(name: 'ctk-release', ext: 'aar')
 //    compile(name: 'core-0.9.1.0', ext: 'aar')
     compile project(':ctk')
-    compile project(':dialog')
+    compile project(':meteria_dialog')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'

@@ -1,1 +1,1 @@
-include ':app', ':ctk', ':dialog'
+include ':app', ':ctk', ':meteria_dialog'
