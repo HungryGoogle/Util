@@ -66,6 +66,10 @@ public class TestPopupDialogActivity extends Activity {
         items.add("李白");
         items.add("杜甫");
         items.add("张九龄");
+        items.add("张1龄");
+        items.add("张2龄");
+        items.add("张3龄");
+        items.add("张4龄");
 
         ViewGroup viewCustomGroup = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.popup_dialog_custom_layout, null);
         PopupDialog popupDialog = new PopupDialog(this);

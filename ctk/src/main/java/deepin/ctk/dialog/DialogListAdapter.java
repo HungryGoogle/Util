@@ -93,8 +93,11 @@ public class DialogListAdapter extends RecyclerView.Adapter<DialogListAdapter.My
         }
     }
 
+    int maxLine = 5;
     @Override
     public int getItemCount() {
+        if(mDatas.size() > maxLine)
+            return maxLine;
         return mDatas.size();
     }
 
